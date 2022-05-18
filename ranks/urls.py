@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from mainapp.views import CancelView, SuccessView, CreateCheckoutSessionView, ItemLandingPageView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cancel/', CancelView.as_view(), name='cancel'),
+    path('success/', SuccessView.as_view(), name='success'),
+    path('item/<int:pk>', ItemLandingPageView.as_view()),
+    path('buy/<int:pk>/', CreateCheckoutSessionView.as_view(), name='create-checkout-session')
 ]

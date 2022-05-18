@@ -1,0 +1,1 @@
+web: gunicorn ranks.wsgi --log-file -
