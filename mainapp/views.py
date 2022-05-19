@@ -1,6 +1,7 @@
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
@@ -53,7 +54,7 @@ class ItemLandingPageView(TemplateView):
     template_name = "landing.html"
 
     def get_context_data(self, **kwargs):
-        item = Item.objects.get(pk=self.kwargs.get('pk'))
+        item = get_object_or_404(Item, pk=self.kwargs.get('pk'))
         context = super(ItemLandingPageView, self).get_context_data(**kwargs)
         context.update({
             "item": item,
