@@ -13,7 +13,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 class CreateCheckoutSessionView(View):
     def get(self, request, *args, **kwargs):
         item_id = self.kwargs["pk"]
-        print(item_id)
         item = Item.objects.get(id=item_id)
         YOUR_DOMAIN = "http://127.0.0.1:8000"
         checkout_session = stripe.checkout.Session.create(
