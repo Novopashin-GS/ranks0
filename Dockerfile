@@ -1,5 +1,7 @@
-FROM python:3
+FROM python:3.9.6
 ENV PYTHONUNBUFFERED 1
-WORKDIR /app
-ADD . ./app
-RUN pip install -r requirements.txt
+RUN mkdir /web_django
+WORKDIR /web_django
+COPY requirements.txt /web_django/
+RUN pip install --upgrade pip && pip install -r requirements.txt
+ADD . /web_django/
