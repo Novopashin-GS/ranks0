@@ -1,13 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Checkout canceled</title>
-  <link rel="stylesheet"  type="text/css" href="{% static 'style.css' %}">
-</head>
-<body>
-  <section>
-    <p>Forgot to add something to your cart? Shop around then come back to pay!</p>
-  </section>
-</body>
-</html>
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock %}
+{% block content %}
+    <section>
+        <p>Forgot to add something to your cart? Shop around then come back to pay!</p>
+    </section>
+{% endblock %}
