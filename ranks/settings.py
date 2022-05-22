@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-qbpmd!5g6r00^koeh3atv0&h$scz2&yfls4bv-p$6v%gl^tn^*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -132,8 +132,7 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 load_dotenv()
-env_path = Path('.')/'.env'
-load_dotenv(dotenv_path=env_path)
+
 
 # retrieving keys and adding them to the project
 # from the .env file through their key names
