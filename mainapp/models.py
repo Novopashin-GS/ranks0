@@ -8,6 +8,9 @@ class Order(models.Model):
         verbose_name = 'заказ'
         verbose_name_plural = 'заказы'
 
+    def __str__(self):
+        return f'Заказ №{self.pk}'
+
     def get_total_cost(self):
         items = self.items.select_related()
         return sum(list(map(lambda x: x.price, items)))
