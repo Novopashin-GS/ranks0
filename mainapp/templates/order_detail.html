@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block js %}
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div>
+        <section>
+        {% for item in object.items.select_related %}
+            <div class="product">
+                <span>{{ item.name }}</span>
+                <span>{{ item.description }}</span>
+                <span>{{ item.product.price }}</span>
+                <span>$ {{ item.get_display_price }}</span>
+            </div>
+        {% endfor %}
+        <button type="submit" id="checkout-button">Buy</button>
+        </section>
+        {% csrf_token %}
+    </div>
+
+
+    <script type='text/javascript'>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
+        var buyButton = document.getElementById("checkout-button");
+        buyButton.addEventListener("click", function () {
+            fetch("{% url 'create-checkout-session' object.id %}", {
+                method: "GET",
+                headers: {
+                    'X-CSRFToken': csrftoken
+                }
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (session) {
+                    return stripe.redirectToCheckout({sessionId: session.id});
+                })
+                .then(function (result) {
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error:", error);
+                });
+        });
+    </script>
+{% endblock %}
